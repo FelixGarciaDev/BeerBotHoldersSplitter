@@ -18,8 +18,6 @@ contract BeerBotHoldersSplitter is Ownable, Pausable{
      * 1%	 =  100 bps
      * 10%	 =  1000 bps
      * 100%	 = 10000 bps
-     *
-     *
      */
     function splitToHolders(address[] memory payees, uint16[] memory shares_) 
         public
@@ -32,7 +30,6 @@ contract BeerBotHoldersSplitter is Ownable, Pausable{
             uint256 payment = 0;
             
             for(uint16 i = 0; i < payees.length; i++) {
-                //return theNumber * bp / 10000;
                 payment = msg.value * shares_[i] / 10000;                
                 (bool sent, ) = payable(payees[i]).call{value: payment}("");                
             }

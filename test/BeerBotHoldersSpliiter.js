@@ -37,129 +37,124 @@ describe("BeerBotClub Holders Splitter", async () => {
         return signers
     }
 
-    // describe("Deployment...", () => {
-    //     it("Deploys Holders Splitter", async () => {
-    //         const { 
-    //             creator,
-    //             deployedBeerBotClubHolderSpliiter 
-    //         } = await setupHoldersSplitter();
+    describe("Deployment...", () => {
+        it("Deploys Holders Splitter", async () => {
+            const { 
+                creator,
+                deployedBeerBotClubHolderSpliiter 
+            } = await setupHoldersSplitter();
             
-    //         console.log("BeerBotClub Holder's Splitter contract deployed at... " + deployedBeerBotClubHolderSpliiter.address);
-    //     });
-    // });
+            console.log("BeerBotClub Holder's Splitter contract deployed at... " + deployedBeerBotClubHolderSpliiter.address);
+        });
+    });
 
-    // describe("Funds Management", () => {
-    //     it("Recives funds and sends proper amount to holders", async () => {
-    //         const { 
-    //             creator,
-    //             leadDude,
-    //             artirstDude,
-    //             devDude,
-    //             someDudeOne,
-    //             somdeDudeTwo,
-    //             someDudeThree,
-    //             someDudeFour,
-    //             deployedBeerBotClubHolderSpliiter 
-    //         } = await setupHoldersSplitter();
+    describe("Funds Management", () => {
+        it("Recives funds and sends proper amount to holders", async () => {
+            const { 
+                creator,
+                leadDude,
+                artirstDude,
+                devDude,
+                someDudeOne,
+                somdeDudeTwo,
+                someDudeThree,
+                someDudeFour,
+                deployedBeerBotClubHolderSpliiter 
+            } = await setupHoldersSplitter();
 
-    //         const provider = ethers.provider;
+            const provider = ethers.provider;
             
-    //         console.log("creator address: " + creator.address);
-    //         console.log("creator balance: " + await provider.getBalance(creator.address));
-    //         console.log("---")
-    //         console.log("leadDude address: " + leadDude.address);
-    //         console.log("leadDude balance: " + await provider.getBalance(leadDude.address));
-    //         console.log("---")
-    //         console.log("artirstDude address: " + artirstDude.address);
-    //         console.log("artirstDude balance: " + await provider.getBalance(artirstDude.address));
-    //         console.log("---")
-    //         console.log("devDude address: " + devDude.address);
-    //         console.log("devDude balance: " + await provider.getBalance(devDude.address));
-    //         console.log("---")
-    //         console.log("someDudeOne address: " + someDudeOne.address);
-    //         console.log("someDudeOne balance: " + await provider.getBalance(someDudeOne.address));
-    //         console.log("---")
-    //         console.log("somdeDudeTwo address: " + somdeDudeTwo.address);
-    //         console.log("somdeDudeTwo balance: " + await provider.getBalance(somdeDudeTwo.address));
-    //         console.log("---")
-    //         console.log("someDudeThree address: " + someDudeThree.address);
-    //         console.log("someDudeThree balance: " + await provider.getBalance(someDudeThree.address));
-    //         console.log("---")
-    //         console.log("someDudeFour address: " + someDudeFour.address);
-    //         console.log("someDudeFour balance: " + await provider.getBalance(someDudeFour.address));
-    //         console.log("---")
+            console.log("creator address: " + creator.address);
+            console.log("creator balance: " + await provider.getBalance(creator.address));
+            console.log("---")
+            console.log("leadDude address: " + leadDude.address);
+            console.log("leadDude balance: " + await provider.getBalance(leadDude.address));
+            console.log("---")
+            console.log("artirstDude address: " + artirstDude.address);
+            console.log("artirstDude balance: " + await provider.getBalance(artirstDude.address));
+            console.log("---")
+            console.log("devDude address: " + devDude.address);
+            console.log("devDude balance: " + await provider.getBalance(devDude.address));
+            console.log("---")
+            console.log("someDudeOne address: " + someDudeOne.address);
+            console.log("someDudeOne balance: " + await provider.getBalance(someDudeOne.address));
+            console.log("---")
+            console.log("somdeDudeTwo address: " + somdeDudeTwo.address);
+            console.log("somdeDudeTwo balance: " + await provider.getBalance(somdeDudeTwo.address));
+            console.log("---")
+            console.log("someDudeThree address: " + someDudeThree.address);
+            console.log("someDudeThree balance: " + await provider.getBalance(someDudeThree.address));
+            console.log("---")
+            console.log("someDudeFour address: " + someDudeFour.address);
+            console.log("someDudeFour balance: " + await provider.getBalance(someDudeFour.address));
+            console.log("---")
 
-    //         // array of addresses
-    //         holdersAddresses = [
-    //             leadDude.address, 
-    //             artirstDude.address, 
-    //             devDude.address, 
-    //             someDudeOne.address, 
-    //             somdeDudeTwo.address, 
-    //             someDudeThree.address, 
-    //             someDudeFour.address
-    //         ]
-    //         // array of bps (percentages on basis points)
-    //         // 0.01% =	  1 bps
-    //         // 0.1%	 =   10 bps
-    //         // 0.5%	 =   50 bps
-    //         // 1%	 =  100 bps
-    //         // 10%	 =  1000 bps
-    //         // 100%	 = 10000 bps
-    //         holdersBPS = [
-    //             250,
-    //             250,
-    //             2000,
-    //             2000,
-    //             1000,
-    //             4000,                
-    //             500
-    //         ]
-    //         // parse.ether values            
-    //         //    0.02 MATIC      20000000000000000n
-    //         //    0.30 MATIC     300000000000000000n
-    //         //    1    MATIC    1000000000000000000n
-    //         //   20    MATIC   20000000000000000000n            
-    //         console.log("SENDING FUNDS TO HOLDERS...\n")
-    //         //tx = await deployedBmBots.connect(creator)["release(address)"](project.address);
-    //         await deployedBeerBotClubHolderSpliiter.connect(creator)["_unpause"];
-    //         // await deployedBeerBotClubHolderSpliiter.connect(creator)["splitToHolders"](holdersAddresses, holdersBPS);
-    //         await deployedBeerBotClubHolderSpliiter.connect(creator).splitToHolders(
-    //             holdersAddresses, 
-    //             holdersBPS,
-    //             {
-    //             from: creator.address,
-    //             value: ethers.utils.parseEther('9000')
-    //             }
-    //         );
-    //         console.log("DONE\n")
-    //         console.log("creator address: " + creator.address);
-    //         console.log("creator balance: " + await provider.getBalance(creator.address));
-    //         console.log("---")
-    //         console.log("leadDude address: " + leadDude.address);
-    //         console.log("leadDude balance: " + await provider.getBalance(leadDude.address));
-    //         console.log("---")
-    //         console.log("artirstDude address: " + artirstDude.address);
-    //         console.log("artirstDude balance: " + await provider.getBalance(artirstDude.address));
-    //         console.log("---")
-    //         console.log("devDude address: " + devDude.address);
-    //         console.log("devDude balance: " + await provider.getBalance(devDude.address));
-    //         console.log("---")
-    //         console.log("someDudeOne address: " + someDudeOne.address);
-    //         console.log("someDudeOne balance: " + await provider.getBalance(someDudeOne.address));
-    //         console.log("---")
-    //         console.log("somdeDudeTwo address: " + somdeDudeTwo.address);
-    //         console.log("somdeDudeTwo balance: " + await provider.getBalance(somdeDudeTwo.address));
-    //         console.log("---")
-    //         console.log("someDudeThree address: " + someDudeThree.address);
-    //         console.log("someDudeThree balance: " + await provider.getBalance(someDudeThree.address));
-    //         console.log("---")
-    //         console.log("someDudeFour address: " + someDudeFour.address);
-    //         console.log("someDudeFour balance: " + await provider.getBalance(someDudeFour.address));
-    //         console.log("---")
-    //     });
+            // array of addresses
+            holdersAddresses = [
+                leadDude.address, 
+                artirstDude.address, 
+                devDude.address, 
+                someDudeOne.address, 
+                somdeDudeTwo.address, 
+                someDudeThree.address, 
+                someDudeFour.address
+            ]
+            // array of bps (percentages on basis points)
+            // 0.01% =	  1 bps
+            // 0.1%	 =   10 bps
+            // 0.5%	 =   50 bps
+            // 1%	 =  100 bps
+            // 10%	 =  1000 bps
+            // 100%	 = 10000 bps
+            holdersBPS = [
+                250,
+                250,
+                2000,
+                2000,
+                1000,
+                4000,                
+                500
+            ]        
+            console.log("SENDING FUNDS TO HOLDERS...\n")
+            //tx = await deployedBmBots.connect(creator)["release(address)"](project.address);
+            await deployedBeerBotClubHolderSpliiter.connect(creator)["_unpause"];
+            // await deployedBeerBotClubHolderSpliiter.connect(creator)["splitToHolders"](holdersAddresses, holdersBPS);
+            await deployedBeerBotClubHolderSpliiter.connect(creator).splitToHolders(
+                holdersAddresses, 
+                holdersBPS,
+                {
+                from: creator.address,
+                value: ethers.utils.parseEther('9000')
+                }
+            );
+            console.log("DONE\n")
+            console.log("creator address: " + creator.address);
+            console.log("creator balance: " + await provider.getBalance(creator.address));
+            console.log("---")
+            console.log("leadDude address: " + leadDude.address);
+            console.log("leadDude balance: " + await provider.getBalance(leadDude.address));
+            console.log("---")
+            console.log("artirstDude address: " + artirstDude.address);
+            console.log("artirstDude balance: " + await provider.getBalance(artirstDude.address));
+            console.log("---")
+            console.log("devDude address: " + devDude.address);
+            console.log("devDude balance: " + await provider.getBalance(devDude.address));
+            console.log("---")
+            console.log("someDudeOne address: " + someDudeOne.address);
+            console.log("someDudeOne balance: " + await provider.getBalance(someDudeOne.address));
+            console.log("---")
+            console.log("somdeDudeTwo address: " + somdeDudeTwo.address);
+            console.log("somdeDudeTwo balance: " + await provider.getBalance(somdeDudeTwo.address));
+            console.log("---")
+            console.log("someDudeThree address: " + someDudeThree.address);
+            console.log("someDudeThree balance: " + await provider.getBalance(someDudeThree.address));
+            console.log("---")
+            console.log("someDudeFour address: " + someDudeFour.address);
+            console.log("someDudeFour balance: " + await provider.getBalance(someDudeFour.address));
+            console.log("---")
+        });
 
-    // });
+    });
 
     describe("Repeat previous test but with 4000 holders...", () => {
         it("Recives funds and sends proper amount to holders", async () => {
