@@ -116,9 +116,7 @@ describe("BeerBotClub Holders Splitter", async () => {
                 500
             ]        
             console.log("SENDING FUNDS TO HOLDERS...\n")
-            //tx = await deployedBmBots.connect(creator)["release(address)"](project.address);
             await deployedBeerBotClubHolderSpliiter.connect(creator)["_unpause"];
-            // await deployedBeerBotClubHolderSpliiter.connect(creator)["splitToHolders"](holdersAddresses, holdersBPS);
             await deployedBeerBotClubHolderSpliiter.connect(creator).splitToHolders(
                 holdersAddresses, 
                 holdersBPS,

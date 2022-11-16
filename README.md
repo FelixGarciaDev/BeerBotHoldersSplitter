@@ -1,10 +1,6 @@
 # BeerBot Holders Splitter contract
 
-This contract was deployed on bnb chain.
-```
-BNB chain tesnet Contract address = 0xe5f4e0d7d7118950bF4f2D2512c0C1d24fC467b2
-```
-intract with it in explorer [https://testnet.bscscan.com/address/0x6cFDd82Cf27637Bc8467d889C28efb69A2c84bc9](https://testnet.bscscan.com/address/0x6cFDd82Cf27637Bc8467d889C28efb69A2c84bc9).
+This contract will be deployed to bnb chain.
 
 ### About this contract
 
