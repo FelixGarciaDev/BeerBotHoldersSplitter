@@ -6,9 +6,9 @@ This contract will be deployed to bnb chain.
 
 This contract is one of the 3 contracts that make up the foundations of BeerBot Club.
 
-- BeerBotClub Contract
-- Team Splitter Contract
-- Holders Splitter Contract
+- [BeerBotClub Contract](https://github.com/FelixGarciaDev/BeerBotContract)
+- [Team Splitter Contract](https://github.com/FelixGarciaDev/BeerBotSplitter)
+- Holders Splitter Contract (the contract on this repo)
 
 For more information about the BeerBot Club you can read [its whitepaper](https://beerbot.club/WhitepaperBeerBotClub.pdf)
 
