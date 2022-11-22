@@ -1,8 +1,12 @@
 # BeerBot Holders Splitter contract
 
-This contract will be deployed to bnb chain.
+### BNB chain Tesnet
 
-### About this contract
+This contract was deployed on bnb chain (tesnet).
+```
+BNB chain tesnet Contract address = 0xF9d267B75118CF1E669D0C58603dcfc1eF296181
+```
+intract with it in explorer [https://testnet.bscscan.com/address/0xF9d267B75118CF1E669D0C58603dcfc1eF296181](https://testnet.bscscan.com/address/0xF9d267B75118CF1E669D0C58603dcfc1eF296181).
 
 This contract is one of the 3 contracts that make up the foundations of BeerBot Club.
 

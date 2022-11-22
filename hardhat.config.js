@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 require("@nomiclabs/hardhat-waffle");
 
 module.exports = {
@@ -15,14 +15,14 @@ module.exports = {
   },
   networks: {        
     bsc_testnet: {      
-      url: "https://data-seed-prebsc-1-s3.binance.org:8545",
+      url:  process.env.bsc_tesnet_node_url,
       chainId: 97,
       accounts: [
-        process.env.bsc_testnet_account
+        process.env.bsc_tesnet_account
       ]
     }//,
     // bsc_mainnet: {
-    //   url: "https://bsc-dataseed.binance.org/",      
+    //   url: "rocess.env.bsc_mainnet_node_url,
     //   chainId: 56,      
     //   accounts: [
     //     process.env.bsc_mainnet_account

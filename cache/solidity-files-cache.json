@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\FelixGarcia\\Develop\\Blockchain\\BeerBotClub\\BeerBotHoldersSplitter\\contracts\\BeerBotHoldersSplitter.sol": {
-      "lastModificationDate": 1668546240337,
-      "contentHash": "cecacef33e74aa56aa5219712db17661",
+      "lastModificationDate": 1668623041976,
+      "contentHash": "dc58e8119fbb42df1ab2936ea8710f3c",
       "sourceName": "contracts/BeerBotHoldersSplitter.sol",
       "solcConfig": {
         "version": "0.8.9",
