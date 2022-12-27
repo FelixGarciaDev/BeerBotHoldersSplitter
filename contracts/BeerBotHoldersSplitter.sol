@@ -71,8 +71,7 @@ contract BeerBotHoldersSplitter is Ownable{
      * 100%	 = 10000 bps
      */
     function splitToHolders(bytes32 _symbol, address[] memory payees, uint16[] memory shares_) 
-        external
-        payable 
+        external 
         onlyOwner        
         {
             require(payees.length > 0, "splitToHolders: no payees");
