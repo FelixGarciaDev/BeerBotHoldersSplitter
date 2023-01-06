@@ -20,13 +20,13 @@ module.exports = {
       accounts: [
         process.env.bsc_tesnet_account
       ]
-    }//,
-    // bsc_mainnet: {
-    //   url: "rocess.env.bsc_mainnet_node_url,
-    //   chainId: 56,      
-    //   accounts: [
-    //     process.env.bsc_mainnet_account
-    //   ]
-    // }
+    },
+    bsc_mainnet: {
+      url: process.env.bsc_mainnet_node_url,
+      chainId: 56,      
+      accounts: [
+        process.env.bsc_mainnet_account
+      ]
+    }
   }
 };

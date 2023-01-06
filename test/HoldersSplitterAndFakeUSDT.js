@@ -37,6 +37,14 @@ describe("BeerBotClub Holders Splitter", async () => {
         }
    }
 
+    const getRandomSigners = async (numberOfSigners) => {
+        const signers = [];
+        for (let i = 0; i < numberOfSigners; i++) {
+            signers.push(ethers.Wallet.createRandom());
+        }
+        return signers;
+    }
+
     describe("Demo Token Tests", () => { 
         it("Should should successfully deploy", async function () {
             const { 
@@ -166,10 +174,10 @@ describe("BeerBotClub Holders Splitter", async () => {
             let arrayOfBpsUsdt = [2500,2500,2500,2500];
             let arrayOfBpsDai = [7000,1000,1000,1000];
             console.log("Sending FakeUSDTs from contract...");
-            await deployedHolderSplitter.splitToHolders(ethers.utils.formatBytes32String("FUSDT"),arrayOfAddresses, arrayOfBpsUsdt)
+            await deployedHolderSplitter.splitSymbolToHolders(ethers.utils.formatBytes32String("FUSDT"),arrayOfAddresses, arrayOfBpsUsdt)
             console.log("Done..\n");
             console.log("Sending FakeDAIs from contract...");
-            await deployedHolderSplitter.splitToHolders(ethers.utils.formatBytes32String("FDAI"),arrayOfAddresses, arrayOfBpsDai)
+            await deployedHolderSplitter.splitSymbolToHolders(ethers.utils.formatBytes32String("FDAI"),arrayOfAddresses, arrayOfBpsDai)
             console.log("Done..\n");
 
             somedudeoneusdt = await deployedFakeUSDT.connect(USDTcreator).balanceOf(someDudeOne.address);
@@ -238,11 +246,263 @@ describe("BeerBotClub Holders Splitter", async () => {
             let arrayOfAddresses = [someDudeOne.address, someDudeTwo.address, someDudeThree.address, someDudeFour.address];            
             let arrayOfBpsDai = [7000,1000,1000,1000];            
             console.log("Sending FakeDAIs from contract...");
-            await expect(deployedHolderSplitter.splitToHolders(ethers.utils.formatBytes32String("FDAI"),arrayOfAddresses, arrayOfBpsDai)).to.be.revertedWith("'splitToHolders: no funds of token");
+            await expect(deployedHolderSplitter.splitSymbolToHolders(ethers.utils.formatBytes32String("FDAI"),arrayOfAddresses, arrayOfBpsDai)).to.be.revertedWith("'splitToHolders: no funds of token");
             let contractFakeDAIfunds = await deployedFakeDAI.connect(DAIcreator).balanceOf(deployedFakeDAI.address);
             console.log("failed because the FAKEDAI contract balance is: " + contractFakeDAIfunds + "\n");
 
         });
+
+        it("can split native token", async function () {
+            const { 
+                USDTcreator,
+                DAIcreator,
+                SplitterCreator,
+                someDudeOne,
+                someDudeTwo,
+                someDudeThree,
+                someDudeFour,
+                deployedHolderSplitter,
+                deployedFakeUSDT,
+                deployedFakeDAI
+            } = await setupBothContracts();
+            console.log("\n")
+            const provider = ethers.provider;
+            let SplitterCreatorBalance  = await provider.getBalance(SplitterCreator.address);
+            let someDudeOneBalance      = await provider.getBalance(someDudeOne.address);
+            let someDudeTwoBalance      = await provider.getBalance(someDudeTwo.address);
+            let someDudeThreeBalance    = await provider.getBalance(someDudeThree.address);
+            let someDudeFourBalance     = await provider.getBalance(someDudeFour.address);
+            
+            console.log("the balance of SplitterCreator is: ",  ethers.utils.formatEther(SplitterCreatorBalance), " BNB");
+            console.log("the balance of someDudeOne is: ",  ethers.utils.formatEther(someDudeOneBalance), " BNB");
+            console.log("the balance of someDudeTwo is: ",  ethers.utils.formatEther(someDudeTwoBalance), " BNB");
+            console.log("the balance of someDudeThree is: ",  ethers.utils.formatEther(someDudeThreeBalance), " BNB");
+            console.log("the balance of someDudeFour is: ",  ethers.utils.formatEther(someDudeFourBalance), " BNB");           
+
+            // array of addresses
+            holdersAddresses = [
+                someDudeOne.address, 
+                someDudeTwo.address, 
+                someDudeThree.address, 
+                someDudeFour.address                
+            ]
+
+            // array of bps (percentages on basis points)
+            // 0.01% =	  1 bps
+            // 0.1%	 =   10 bps
+            // 0.5%	 =   50 bps
+            // 1%	 =  100 bps
+            // 10%	 =  1000 bps
+            // 100%	 = 10000 bps
+            holdersBPS = [
+                5000,
+                2000,
+                2000,
+                1000,
+            ]        
+            console.log("SENDING FUNDS TO HOLDERS...\n")                        
+            await deployedHolderSplitter.connect(SplitterCreator).splitNativeTokenToHolders(
+                holdersAddresses, 
+                holdersBPS,
+                {
+                from: SplitterCreator.address,
+                value: ethers.utils.parseEther('100')
+                }
+            );
+            console.log("DONE\n")
+            SplitterCreatorBalance  = await provider.getBalance(SplitterCreator.address);
+            someDudeOneBalance      = await provider.getBalance(someDudeOne.address);
+            someDudeTwoBalance      = await provider.getBalance(someDudeTwo.address);
+            someDudeThreeBalance    = await provider.getBalance(someDudeThree.address);
+            someDudeFourBalance     = await provider.getBalance(someDudeFour.address);
+            
+            console.log("the balance of SplitterCreator is: ",  ethers.utils.formatEther(SplitterCreatorBalance), " BNB");
+            console.log("the balance of someDudeOne is: ",  ethers.utils.formatEther(someDudeOneBalance), " BNB");
+            console.log("the balance of someDudeTwo is: ",  ethers.utils.formatEther(someDudeTwoBalance), " BNB");
+            console.log("the balance of someDudeThree is: ",  ethers.utils.formatEther(someDudeThreeBalance), " BNB");
+            console.log("the balance of someDudeFour is: ",  ethers.utils.formatEther(someDudeFourBalance), " BNB");
+            
+        });
+
+        it("real wordl simulation", async function () {
+            const { 
+                USDTcreator,
+                DAIcreator,
+                SplitterCreator,
+                someDudeOne,
+                someDudeTwo,
+                someDudeThree,
+                someDudeFour,
+                deployedHolderSplitter,
+                deployedFakeUSDT,
+                deployedFakeDAI
+            } = await setupBothContracts();
+            
+            console.log("\n");
+            // get ramdom 89 addresses
+            const holders = await getRandomSigners(89);
+            console.log("holders created")
+
+            // create an array of just the addresses
+            let holdersAddresses = [];
+            for (let i = 0; i < holders.length; i++) {
+                holdersAddresses.push(holders[i].address);
+            }
+            console.log(holdersAddresses);
+
+            // create an array of just the basis points
+            let arrayOfBPS = [
+                1481,
+                703,
+                444,
+                370,
+                370,
+                296,
+                222,
+                185,
+                185,
+                185,
+                185,
+                185,
+                148,
+                148,
+                148,
+                148,
+                148,
+                148,
+                148,
+                148,
+                111,
+                111,
+                111,
+                111,
+                111,
+                111,
+                111,
+                111,
+                111,
+                74,
+                74,
+                74,
+                74,
+                74,
+                74,
+                74,
+                74,
+                74,
+                74,
+                74,
+                74,
+                74,
+                74,
+                74,
+                74,
+                74,
+                74,
+                74,
+                74,
+                74,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+                37,
+            ]
+
+            // lets create an arrat of initial balances...
+            let startingBalances = [];
+            const provider = ethers.provider;
+
+            for (let i = 0; i < holdersAddresses.length; i++) {
+                startingBalances.push(await provider.getBalance(holdersAddresses[i]));
+            }
+
+            // send the funds...
+            console.log("SENDING FUNDS TO HOLDERS...\n")    
+            let amountToSend = ethers.utils.parseEther('100')
+            await deployedHolderSplitter.connect(SplitterCreator)["_unpause"];
+            const chunkSize = 50;
+            let totalGasSpent = ethers.utils.parseEther('0')
+            for (let i = 0; i < holdersAddresses.length; i += chunkSize) {
+                let chunk = holdersAddresses.slice(i, i + chunkSize);
+                let chunkOfBPS =  arrayOfBPS.slice(i, i + chunkSize)
+                // do whatever
+                let tx = await deployedHolderSplitter.connect(SplitterCreator).splitNativeTokenToHolders(
+                    chunk, 
+                    chunkOfBPS,
+                    {
+                        from: SplitterCreator.address,
+                        value: amountToSend
+                    }
+                );
+    
+                let receipt = await tx.wait();
+                let gasSpent = receipt.gasUsed.mul(receipt.effectiveGasPrice);
+                totalGasSpent = totalGasSpent.add(gasSpent);
+                console.log("Total gas spent for splitting to " + chunkSize + " addresses: "+ethers.utils.formatEther(gasSpent)+ " BNB");
+            }
+            console.log("\n");
+            console.log("FUNDS SENDED TO ALL HOLDERS\n")
+            console.log("Total gas spent for splitting to 4000 addresses: "+ethers.utils.formatEther(totalGasSpent)+ " BNB\n");
+            // create an array of new balances
+            let finalBalances = [];
+
+            for (let i = 0; i < holdersAddresses.length; i++) {
+                finalBalances.push(await provider.getBalance(holdersAddresses[i]));
+            }
+
+            // check that they recived the correct amount
+            for (let i = 0; i < holdersAddresses.length; i++) {
+                pastHolderBalance = startingBalances[i];
+                actualHolderBalance = await provider.getBalance(holdersAddresses[i]);
+                percentage = (arrayOfBPS[i]/100).toString();
+                holderShare = amountToSend.mul(ethers.utils.parseEther(percentage)).div(ethers.utils.parseEther('100'));
+                
+                expect(actualHolderBalance).to.eq(pastHolderBalance.add(holderShare));
+            }
+            //
+            holdersFinalBalances = {};
+            for (let i = 0; i < holdersAddresses.length; i++) {
+                holderFinalBalance = await provider.getBalance(holdersAddresses[i]);
+                holdersFinalBalances[holdersAddresses[i]] = ethers.utils.formatEther(holderFinalBalance);
+            }    
+
+            console.log(holdersFinalBalances)
+        });           
     
     });
 
