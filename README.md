@@ -8,6 +8,15 @@ BNB chain tesnet Contract address = 0xF9d267B75118CF1E669D0C58603dcfc1eF296181
 ```
 intract with it in explorer [https://testnet.bscscan.com/address/0xF9d267B75118CF1E669D0C58603dcfc1eF296181](https://testnet.bscscan.com/address/0xF9d267B75118CF1E669D0C58603dcfc1eF296181).
 
+
+### BNB chain Mainet
+
+This contract was deployed on bnb chain.
+```
+BNB chain tesnet Contract address = 0xB10D356f6C88341Fa52Fa0A722619Bd32b5e0F82
+```
+intract with it in explorer [https://bscscan.com/address/0xB10D356f6C88341Fa52Fa0A722619Bd32b5e0F82](https://bscscan.com/address/0xB10D356f6C88341Fa52Fa0A722619Bd32b5e0F82).
+
 This contract is one of the 3 contracts that make up the foundations of BeerBot Club.
 
 - [BeerBotClub Contract](https://github.com/FelixGarciaDev/BeerBotContract)

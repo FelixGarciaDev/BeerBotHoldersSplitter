@@ -54,7 +54,7 @@ contract BeerBotHoldersSplitter is Ownable{
         }
 
     /**
-     * @dev this is a payable functions, that recives an amount of Native token for instance BNB on BNB Chain
+     * @dev this is a payable function, that recives an amount of Native token for instance BNB on BNB Chain
      * and splits this amount to addresses determined in a array of address.
      * each address recives a proportion determined by a array of percentages in basis points, so...
      * 0.01% =	  1 bps
@@ -75,8 +75,7 @@ contract BeerBotHoldersSplitter is Ownable{
             uint256 payment = 0;
             
             for(uint16 i = 0; i < payees.length; i++) {
-                payment = msg.value * shares_[i] / 10000;                
-                // payable(payees[i]).call{value: payment}("");
+                payment = msg.value * shares_[i] / 10000;                                
                 (bool sent, ) = payable(payees[i]).call{value: payment}("");
                 require(sent, "Withdraw failed");           
             }
